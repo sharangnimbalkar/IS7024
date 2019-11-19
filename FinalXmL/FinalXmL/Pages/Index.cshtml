@@ -1,0 +1,53 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var welcomes = (QuickType.Welcome[])ViewData["Welcome"];
+    var geodatas = (QuickType1.Geonamedata[])ViewData["Geoname"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Code</th>
+
+
+        </tr>
+        @{
+            foreach (QuickType.Welcome welcome in welcomes)
+            {
+                <tr>
+                    <td>@welcome.Name</td>
+                    <td>@welcome.Code</td>
+
+                </tr>
+            }
+        }
+
+    </table>
+    <table border="1">
+        <tr>
+            <th>Country</th>
+            <th>Geoname</th>
+            <th>Name</th>
+            <th>Subcountry</th>
+
+
+        </tr>
+        @{
+            foreach (QuickType1.Geonamedata abc in geodatas)
+            {
+                <tr>
+                    <td>@abc.Country</td>
+                    <td>@abc.Geonameid</td>
+                    <td>@abc.Name</td>
+                    <td>@abc.Subcountry</td>
+
+
+                </tr>
+            }
+        }
+    </table>
+</div>
