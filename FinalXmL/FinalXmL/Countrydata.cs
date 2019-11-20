@@ -8,7 +8,7 @@
 
 
 
-namespace QuickType
+namespace QuickTypeCountry
 {
     using System;
     using System.Collections.Generic;
