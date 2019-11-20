@@ -1,0 +1,38 @@
+{
+   "definitions": {},
+   "$schema": "http://json-schema.org/draft-07/schema#",
+   "$id": "http://example.com/root.json",
+   "type": "array",
+   "title": "The Root Schema",
+   "items": {
+     "$id": "#/items",
+     "type": "object",
+     "title": "The Items Schema",
+     "required": [
+       "Code",
+       "Name"
+     ],
+     "properties": {
+       "Code": {
+         "$id": "#/items/properties/Code",
+         "type": "string",
+         "title": "The Code Schema",
+         "default": "",
+         "examples": [
+           "AF"
+         ],
+         "pattern": "^(.*)$"
+       },
+       "Name": {
+         "$id": "#/items/properties/Name",
+         "type": "string",
+         "title": "The Name Schema",
+         "default": "",
+         "examples": [
+           "Afghanistan"
+         ],
+         "pattern": "^(.*)$"
+       }
+     }
+   }
+ }

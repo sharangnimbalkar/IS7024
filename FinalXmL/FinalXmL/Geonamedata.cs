@@ -8,7 +8,7 @@
 
 
 
-namespace QuickType1
+namespace QuickTypeGeo
 {
     using System;
     using System.Collections.Generic;
@@ -48,14 +48,14 @@ namespace QuickType1
 
     public partial class Geonamedata
     {
-        public static Geonamedata[] FromJson(string json) => JsonConvert.DeserializeObject<Geonamedata[]>(json, QuickType.Converter.Settings);
+        public static Geonamedata[] FromJson(string json) => JsonConvert.DeserializeObject<Geonamedata[]>(json, QuickTypeGeo.Converter.Settings);
     }
 
 
 
     public static class Serialize
     {
-        public static string ToJson(this Geonamedata[] self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
+        public static string ToJson(this Geonamedata[] self) => JsonConvert.SerializeObject(self, QuickTypeGeo.Converter.Settings);
     }
 
 

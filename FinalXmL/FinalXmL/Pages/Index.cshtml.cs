@@ -9,8 +9,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using QuickType;
-using QuickType1;
+using QuickTypeCountry;
+using QuickTypeGeo;
 
 namespace FinalXmL.Pages
 {
@@ -18,25 +18,29 @@ namespace FinalXmL.Pages
     {
         public void OnGet()
         {
-            using (var webClient = new WebClient())
+            //hard coding values used in a function is a bad practice especially when you have to change every instance in functions rather than changing one variable name
+            //also if we wanted to manipulate and edit parts of the endURL creating this variable would make that process easier
+            String endCountryURL = "https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json";
+            String jsonCountryString = RetrieveData(endCountryURL);
+            Country[] countries = QuickTypeCountry.Country.FromJson(jsonCountryString);
+            ViewData["Countries"] = countries;
 
+
+            String endGeoURL = "https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json";
+            String jsonGeoString = RetrieveData(endGeoURL);
+            Geonamedata[] geoData = QuickTypeGeo.Geonamedata.FromJson(jsonGeoString);
+            ViewData["Geoname"] = geoData;
+        }
+
+        public string RetrieveData(string endPoint)
+        {
+            string downloadedData = "";
+            using (WebClient webClient = new WebClient())
             {
-
-
-                String jsonString = webClient.DownloadString("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json");
-
-                var welcome = QuickType.Welcome.FromJson(jsonString);
-                ViewData["Welcome"] = welcome;
-
-                String jsonString1 = webClient.DownloadString("https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json");
-
-
-                var geodata = Geonamedata.FromJson(jsonString1);
-                ViewData["Geoname"] = geodata;
-
-
+                downloadedData = webClient.DownloadString(endPoint);
+                //using camelcase as defined in https://www.dofactory.com/reference/csharp-coding-standards
             }
-
+            return downloadedData;
         }
     }
 }

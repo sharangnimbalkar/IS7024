@@ -2,8 +2,8 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    var welcomes = (QuickType.Welcome[])ViewData["Welcome"];
-    var geodatas = (QuickType1.Geonamedata[])ViewData["Geoname"];
+    QuickTypeCountry.Country[] countries = (QuickTypeCountry.Country[])ViewData["Countries"];
+    QuickTypeGeo.Geonamedata[] geodatas = (QuickTypeGeo.Geonamedata[])ViewData["Geoname"];
 }
 
 <div class="text-center">
@@ -16,11 +16,11 @@
 
         </tr>
         @{
-            foreach (QuickType.Welcome welcome in welcomes)
+            foreach (QuickTypeCountry.Country country in countries)
             {
                 <tr>
-                    <td>@welcome.Name</td>
-                    <td>@welcome.Code</td>
+                    <td>@country.Name</td>
+                    <td>@country.Code</td>
 
                 </tr>
             }
@@ -37,13 +37,13 @@
 
         </tr>
         @{
-            foreach (QuickType1.Geonamedata abc in geodatas)
+            foreach (QuickTypeGeo.Geonamedata geo in geodatas)
             {
                 <tr>
-                    <td>@abc.Country</td>
-                    <td>@abc.Geonameid</td>
-                    <td>@abc.Name</td>
-                    <td>@abc.Subcountry</td>
+                    <td>@geo.Country</td>
+                    <td>@geo.Geonameid</td>
+                    <td>@geo.Name</td>
+                    <td>@geo.Subcountry</td>
 
 
                 </tr>

@@ -7,8 +7,8 @@
 //    var welcome = Welcome.FromJson(jsonString);
 
 
-
-namespace QuickType
+// renamed QuickType to QuickTypeCountry so you dont get confused using them
+namespace QuickTypeCountry
 {
     using System;
     using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace QuickType
 
 
 
-    public partial class Welcome
+    public partial class Country
     {
         [JsonProperty("Code")]
         public string Code { get; set; }
@@ -34,16 +34,16 @@ namespace QuickType
 
 
 
-    public partial class Welcome
+    public partial class Country
     {
-        public static Welcome[] FromJson(string json) => JsonConvert.DeserializeObject<Welcome[]>(json, QuickType.Converter.Settings);
+        public static Country[] FromJson(string json) => JsonConvert.DeserializeObject<Country[]>(json, QuickTypeCountry.Converter.Settings);
     }
 
 
 
     public static class Serialize
     {
-        public static string ToJson(this Welcome[] self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
+        public static string ToJson(this Country[] self) => JsonConvert.SerializeObject(self, QuickTypeCountry.Converter.Settings);
     }
 
 
