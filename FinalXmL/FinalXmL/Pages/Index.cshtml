@@ -2,52 +2,48 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    var welcomes = (QuickType.Welcome[])ViewData["Welcome"];
-    var geodatas = (QuickType1.Geonamedata[])ViewData["Geoname"];
+
+    //var countryList = (QuickTypeCList.CountryList[])ViewData["CountryList"];
+    //var cityList = (QuickTypeCityList.CityList[])ViewData["CityList"];
+    var countryList = (IEnumerable<QuickTypeCList.CountryList>)ViewData["CountryList"];
+    var cityList = (List<QuickTypeCityList.CityList>)ViewData["CityList"];
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Code</th>
-
-
-        </tr>
-        @{
-            foreach (QuickType.Welcome welcome in welcomes)
+<div class="table-responsive">
+    <h2>Country with their Cities</h2>
+    <table class="table table-bordered">
+        @{foreach (QuickTypeCList.CountryList country in countryList)
             {
+                IEnumerable<QuickTypeCityList.CityList> citiesInCountry = cityList.Where(city => city.Country.Equals(country.Name));
+                var namesCount = citiesInCountry.LongCount();
+                <thead class="thead-dark">
+                            <tr>
+                                <th>Country Name</th>
+                                <th>Country Code</th>
+                                <th>Total number of Cities</th>
+                            </tr>
+                </thead>
                 <tr>
-                    <td>@welcome.Name</td>
-                    <td>@welcome.Code</td>
-
+                    <td><strong>@country.Name</strong></td>
+                    <td>@country.Code</td>
+                    <td>@namesCount</td>
                 </tr>
-            }
+                <tr class="table-secondary">
+                    <th>Name</th>
+                    <th>Geoname</th>
+                    <th>State</th>
+                </tr>
+                foreach (QuickTypeCityList.CityList city in citiesInCountry)
+                {
+    <tr>
+        <td>@city.Name</td>
+        <td>@city.Geonameid</td>
+        <td>@city.Subcountry</td>
+    </tr>
+                }
+                }
         }
-
-    </table>
-    <table border="1">
-        <tr>
-            <th>Country</th>
-            <th>Geoname</th>
-            <th>Name</th>
-            <th>Subcountry</th>
-
-
-        </tr>
-        @{
-            foreach (QuickType1.Geonamedata abc in geodatas)
-            {
-                <tr>
-                    <td>@abc.Country</td>
-                    <td>@abc.Geonameid</td>
-                    <td>@abc.Name</td>
-                    <td>@abc.Subcountry</td>
-
-
-                </tr>
-            }
         }
     </table>
+    <br />
 </div>

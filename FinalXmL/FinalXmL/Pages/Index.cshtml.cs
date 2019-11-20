@@ -9,8 +9,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using QuickType;
-using QuickType1;
+using QuickTypeCList;
+using QuickTypeCityList;
 
 namespace FinalXmL.Pages
 {
@@ -18,25 +18,29 @@ namespace FinalXmL.Pages
     {
         public void OnGet()
         {
-            using (var webClient = new WebClient())
+            String list;
+            list = getData("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json");
+            //var countryLists = QuickTypeCList.CountryList.FromJson(list);
+            List<CountryList> countryLists = CountryList.FromJson(list);
 
+            list = getData("https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json");
+            //var cityLists = QuickTypeCityList.CityList.FromJson(list);
+            IEnumerable<CityList> cityLists = CityList.FromJson(list);
+            ViewData["CountryList"] = countryLists;
+            ViewData["CityList"] = cityLists;
+        }
+
+        public string getData(string end_Point_Url)
+        {
+            string dataFromEndpoint;
+            //Creating Disposable object webClient which release object Resources after using block is executed
+            using (WebClient webClient= new WebClient())  
             {
-
-
-                String jsonString = webClient.DownloadString("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json");
-
-                var welcome = QuickType.Welcome.FromJson(jsonString);
-                ViewData["Welcome"] = welcome;
-
-                String jsonString1 = webClient.DownloadString("https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json");
-
-
-                var geodata = Geonamedata.FromJson(jsonString1);
-                ViewData["Geoname"] = geodata;
-
-
+            //Download data from json url fed into string dataFromEndpoint.
+                dataFromEndpoint = webClient.DownloadString(end_Point_Url);     
             }
-
+            //return downloaded json data to the calling method
+            return dataFromEndpoint;    
         }
     }
 }
