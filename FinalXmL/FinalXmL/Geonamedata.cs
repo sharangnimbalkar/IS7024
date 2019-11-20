@@ -2,63 +2,43 @@
 //
 // To parse this JSON data, add NuGet 'Newtonsoft.Json' then do:
 //
-//    using QuickType;
+//    using QuickTypeCityList;
 //
-//    var welcome = Welcome.FromJson(jsonString);
+//    var cityList = CityList.FromJson(jsonString);
 
-
-
-namespace QuickType1
+namespace QuickTypeCityList
 {
     using System;
     using System.Collections.Generic;
-
-
 
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-
-
-    public partial class Geonamedata
+    public partial class CityList
     {
         [JsonProperty("country")]
         public string Country { get; set; }
 
-
-
         [JsonProperty("geonameid")]
         public long Geonameid { get; set; }
-
-
 
         [JsonProperty("name")]
         public string Name { get; set; }
 
-
-
         [JsonProperty("subcountry")]
         public string Subcountry { get; set; }
-
-
     }
 
-
-
-    public partial class Geonamedata
+    public partial class CityList
     {
-        public static Geonamedata[] FromJson(string json) => JsonConvert.DeserializeObject<Geonamedata[]>(json, QuickType.Converter.Settings);
+        public static List<CityList> FromJson(string json) => JsonConvert.DeserializeObject<List<CityList>>(json, QuickTypeCityList.Converter.Settings);
     }
-
-
 
     public static class Serialize
     {
-        public static string ToJson(this Geonamedata[] self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
+        public static string ToJson(this List<CityList> self) => JsonConvert.SerializeObject(self, QuickTypeCityList.Converter.Settings);
     }
-
-
 
     internal static class Converter
     {

@@ -2,51 +2,37 @@
 //
 // To parse this JSON data, add NuGet 'Newtonsoft.Json' then do:
 //
-//    using QuickType;
+//    using QuickTypeCList;
 //
-//    var welcome = Welcome.FromJson(jsonString);
+//    var countryList = CountryList.FromJson(jsonString);
 
-
-
-namespace QuickType
+namespace QuickTypeCList
 {
     using System;
     using System.Collections.Generic;
-
-
 
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-
-
-    public partial class Welcome
+    public partial class CountryList
     {
         [JsonProperty("Code")]
         public string Code { get; set; }
-
-
 
         [JsonProperty("Name")]
         public string Name { get; set; }
     }
 
-
-
-    public partial class Welcome
+    public partial class CountryList
     {
-        public static Welcome[] FromJson(string json) => JsonConvert.DeserializeObject<Welcome[]>(json, QuickType.Converter.Settings);
+        public static List<CountryList> FromJson(string json) => JsonConvert.DeserializeObject<List<CountryList>>(json, QuickTypeCList.Converter.Settings);
     }
-
-
 
     public static class Serialize
     {
-        public static string ToJson(this Welcome[] self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
+        public static string ToJson(this List<CountryList> self) => JsonConvert.SerializeObject(self, QuickTypeCList.Converter.Settings);
     }
-
-
 
     internal static class Converter
     {
