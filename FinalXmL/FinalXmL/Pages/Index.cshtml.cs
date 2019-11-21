@@ -9,8 +9,8 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using QuickType;
-using QuickType1;
+using QuickType_Country;
+using QuickType_City;
 
 namespace FinalXmL.Pages
 {
@@ -23,20 +23,33 @@ namespace FinalXmL.Pages
             {
 
 
-                String jsonString = webClient.DownloadString("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json");
+                String jsonString = GetData("https://pkgstore.datahub.io/core/country-list/data_json/data/8c458f2d15d9f2119654b29ede6e45b8/data_json.json");
 
-                var welcome = QuickType.Welcome.FromJson(jsonString);
+                var welcome = QuickType_Country.Welcome.FromJson(jsonString);
                 ViewData["Welcome"] = welcome;
 
-                String jsonString1 = webClient.DownloadString("https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json");
+                String jsonString_City = GetData("https://pkgstore.datahub.io/core/world-cities/world-cities_json/data/5b3dd46ad10990bca47b04b4739a02ba/world-cities_json.json");
 
 
-                var geodata = Geonamedata.FromJson(jsonString1);
+                var geodata = Geonamedata.FromJson(jsonString_City);
                 ViewData["Geoname"] = geodata;
 
 
             }
 
+            
+
         }
+
+        public string GetData(string EndPointURL)
+        {
+            string JsonData = "";
+            using (WebClient webClient = new WebClient())
+            {
+                JsonData = webClient.DownloadString(EndPointURL);
+            }
+            return JsonData;
+        }
+
     }
 }
