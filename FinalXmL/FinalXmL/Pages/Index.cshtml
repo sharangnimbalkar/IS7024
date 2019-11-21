@@ -2,12 +2,12 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
-    var welcomes = (QuickType.Welcome[])ViewData["Welcome"];
-    var geodatas = (QuickType1.Geonamedata[])ViewData["Geoname"];
+    QuickType_Country.Welcome[] welcomes = (QuickType_Country.Welcome[])ViewData["Welcome"];
+    QuickType_City.Geonamedata[] geodatas = (QuickType_City.Geonamedata[])ViewData["Geoname"];
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Citywise Geoname Data</h1>
     <table border="1">
         <tr>
             <th>Name</th>
@@ -16,11 +16,11 @@
 
         </tr>
         @{
-            foreach (QuickType.Welcome welcome in welcomes)
+            foreach (QuickType_Country.Welcome Country in welcomes)
             {
                 <tr>
-                    <td>@welcome.Name</td>
-                    <td>@welcome.Code</td>
+                    <td>@Country.Name</td>
+                    <td>@Country.Code</td>
 
                 </tr>
             }
@@ -37,14 +37,14 @@
 
         </tr>
         @{
-            foreach (QuickType1.Geonamedata abc in geodatas)
+            foreach (QuickType_City.Geonamedata City in geodatas)
             {
+         
                 <tr>
-                    <td>@abc.Country</td>
-                    <td>@abc.Geonameid</td>
-                    <td>@abc.Name</td>
-                    <td>@abc.Subcountry</td>
-
+                    <td>@City.Country</td>
+                    <td>@City.Geonameid</td>
+                    <td>@City.Name</td>
+                    <td>@City.Subcountry</td>
 
                 </tr>
             }
